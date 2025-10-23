@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>فرم سفارش مبل و صندلی</title>
+  <style>
+    body {
+      font-family: Tahoma, 'Segoe UI', Roboto, sans-serif;
+      background: #f7f7f7;
+      color: #222;
+      margin: 1.5rem;
+      line-height: 1.6;
+    }
+    h1, h2 { text-align: center; color: #4a2c06; margin-bottom: .5rem; }
+    form {
+      background: #fff;
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .col { flex: 1 1 240px; min-width: 180px; }
+    label { display:block; margin-top:10px; font-weight:600; }
+    input[type="text"], input[type="number"], input[type="date"], textarea {
+      width:100%; padding:8px; border:1px solid #d0d0d0; border-radius:6px; font-family:inherit;
+    }
+    textarea { min-height:70px; resize:vertical; }
+    .btn-area { text-align:center; margin-top:18px; }
+    button, .file-btn {
+      background:#6b3e0d; color:#fff; border:none; padding:10px 14px; border-radius:6px;
+      margin:6px; cursor:pointer; font-size:14px;
+    }
+    .secondary { background:#eee; color:#333; border:1px solid #ddd; }
+    .output {
+      background:#fff; padding:18px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.06);
+      margin-top:18px; display:none; direction:rtl; font-size:14px; max-width:900px; margin-left:auto; margin-right:auto;
+    }
+    .output h3 { color:#6b3e0d; margin-top:0; border-bottom:1px solid #eee; padding-bottom:6px; }
+    hr { border:0; border-top:1px solid #eee; margin:12px 0; }
+
+    .controls { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; align-items:center; }
+
+    .status { text-align:center; color:#666; font-size:13px; margin-top:6px; }
+
+    @media (max-width:700px) {
+      .row { flex-direction:column; }
+      form { padding:12px; margin:10px; }
+      .output { margin:10px; }
+    }
+
+    /* چاپ: فقط خروجی چاپ شود */
+    @media print {
+      body * { visibility: hidden; }
+      .output, .output * { visibility: visible; }
+      .output { position: absolute; left:0; top:0; width:100%; }
+    }
+  </style>
+</head>
+<body>
+  <h1>فرم ثبت و خروجی سفارش مبلمان</h1>
+
+  <form id="orderForm" onsubmit="return false;">
+    <h2>اطلاعات کلی سفارش</h2>
+    <div class="row">
+      <div class="col">
+        <label for="customer">نام مشتری</label>
+        <input id="customer" name="customer" type="text" required />
+      </div>
+      <div class="col">
+        <label for="orderId">شماره سفارش</label>
+        <input id="orderId" name="orderId" type="text" required />
+      </div>
+    </div>
+    <label for="generalNote">توضیحات کلی</label>
+    <textarea id="generalNote" name="generalNote"></textarea>
+
+    <h2>۱. اطلاعات رنگ چوب</h2>
+    <div class="row">
+      <div class="col">
+        <label for="woodColor">رنگ چوب</label>
+        <input id="woodColor" name="woodColor" type="text" />
+      </div>
+      <div class="col">
+        <label for="finishType">نوع پوشش</label>
+        <input id="finishType" name="finishType" type="text" />
+      </div>
+      <div class="col">
+        <label for="woodCount">تعداد قطعات چوبی</label>
+        <input id="woodCount" name="woodCount" type="number" min="0" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col"><label for="woodExtra1">آیتم خالی ۱</label><input id="woodExtra1" name="woodExtra1" type="text" /></div>
+      <div class="col"><label for="woodExtra2">آیتم خالی ۲</label><input id="woodExtra2" name="woodExtra2" type="text" /></div>
+      <div class="col"><label for="woodExtra3">آیتم خالی ۳</label><input id="woodExtra3" name="woodExtra3" type="text" /></div>
+      <div class="col"><label for="woodExtra4">آیتم خالی ۴</label><input id="woodExtra4" name="woodExtra4" type="text" /></div>
+    </div>
+    <label for="woodDesc">توضیحات رنگ چوب</label>
+    <textarea id="woodDesc" name="woodDesc"></textarea>
+
+    <h2>۲. اطلاعات خیاطی</h2>
+    <div class="row">
+      <div class="col"><label for="fabricCode">کد پارچه</label><input id="fabricCode" name="fabricCode" type="text" /></div>
+      <div class="col"><label for="fabricColor">رنگ پارچه</label><input id="fabricColor" name="fabricColor" type="text" /></div>
+      <div class="col"><label for="chairCount">تعداد صندلی</label><input id="chairCount" name="chairCount" type="number" min="0" /></div>
+      <div class="col"><label for="sofaCount">تعداد مبل</label><input id="sofaCount" name="sofaCount" type="number" min="0" /></div>
+    </div>
+    <div class="row">
+      <div class="col"><label for="sewingExtra1">آیتم خالی ۱</label><input id="sewingExtra1" name="sewingExtra1" type="text" /></div>
+      <div class="col"><label for="sewingExtra2">آیتم خالی ۲</label><input id="sewingExtra2" name="sewingExtra2" type="text" /></div>
+      <div class="col"><label for="sewingExtra3">آیتم خالی ۳</label><input id="sewingExtra3" name="sewingExtra3" type="text" /></div>
+    </div>
+    <label for="sewingDesc">توضیحات خیاطی</label>
+    <textarea id="sewingDesc" name="sewingDesc"></textarea>
+
+    <h2>۳. اطلاعات نجاری</h2>
+    <div class="row">
+      <div class="col"><label for="woodModel">مدل مبل</label><input id="woodModel" name="woodModel" type="text" /></div>
+      <div class="col"><label for="woodSofaCount">تعداد مبل‌ها</label><input id="woodSofaCount" name="woodSofaCount" type="number" min="0" /></div>
+      <div class="col"><label for="carpExtra1">آیتم خالی ۱</label><input id="carpExtra1" name="carpExtra1" type="text" /></div>
+    </div>
+    <div class="row">
+      <div class="col"><label for="carpExtra2">آیتم خالی ۲</label><input id="carpExtra2" name="carpExtra2" type="text" /></div>
+      <div class="col"><label for="carpExtra3">آیتم خالی ۳</label><input id="carpExtra3" name="carpExtra3" type="text" /></div>
+      <div class="col"><label for="carpExtra4">آیتم خالی ۴</label><input id="carpExtra4" name="carpExtra4" type="text" /></div>
+    </div>
+    <label for="carpDesc">توضیحات نجاری</label>
+    <textarea id="carpDesc" name="carpDesc"></textarea>
+
+    <h2>۴. اطلاعات روی‌کوبی</h2>
+    <div class="row">
+      <div class="col"><label for="upModel">مدل مبل</label><input id="upModel" name="upModel" type="text" /></div>
+      <div class="col"><label for="upTable">میز کنار مبل</label><input id="upTable" name="upTable" type="text" /></div>
+      <div class="col"><label for="upBase">پایه</label><input id="upBase" name="upBase" type="text" /></div>
+    </div>
+    <div class="row">
+      <div class="col"><label for="upChair">صندلی</label><input id="upChair" name="upChair" type="text" /></div>
+      <div class="col"><label for="upSofa">مبل</label><input id="upSofa" name="upSofa" type="text" /></div>
+      <div class="col"><label for="upCouch">کاناپه</label><input id="upCouch" name="upCouch" type="text" /></div>
+    </div>
+    <div class="row">
+      <div class="col"><label for="upExtra1">آیتم خالی ۱</label><input id="upExtra1" name="upExtra1" type="text" /></div>
+      <div class="col"><label for="upExtra2">آیتم خالی ۲</label><input id="upExtra2" name="upExtra2" type="text" /></div>
+      <div class="col"><label for="upExtra3">آیتم خالی ۳</label><input id="upExtra3" name="upExtra3" type="text" /></div>
+    </div>
+    <label for="upDesc">توضیحات روی‌کوبی</label>
+    <textarea id="upDesc" name="upDesc"></textarea>
+
+    <h2>۵. برگه تحویل</h2>
+    <div class="row">
+      <div class="col"><label for="delCustomer">نام مشتری</label><input id="delCustomer" name="delCustomer" type="text" /></div>
+      <div class="col"><label for="delDate">تاریخ تحویل</label><input id="delDate" name="delDate" type="date" /></div>
+      <div class="col"><label for="delPhone">شماره تماس</label><input id="delPhone" name="delPhone" type="text" /></div>
+    </div>
+    <label for="delAddress">آدرس</label>
+    <input id="delAddress" name="delAddress" type="text" />
+    <label for="delDesc">توضیحات تحویل</label>
+    <textarea id="delDesc" name="delDesc"></textarea>
+
+    <div class="btn-area controls">
+      <button type="button" onclick="showSection('chob')">خروجی رنگ چوب</button>
+      <button type="button" onclick="showSection('khayat')">خروجی خیاطی</button>
+      <button type="button" onclick="showSection('najjar')">خروجی نجاری</button>
+      <button type="button" onclick="showSection('rokubi')">خروجی روی‌کوبی</button>
+      <button type="button" onclick="showSection('tahvil')">برگه تحویل</button>
+      <button type="button" onclick="saveJSON()">ذخیره به فایل JSON</button>
+      <label class="file-btn secondary" style="padding:6px 10px; border-radius:6px; cursor:pointer;">
+        بارگذاری JSON
+        <input id="loadFile" type="file" accept="application/json" style="display:none" onchange="loadJSONFile(this)"/>
+      </label>
+      <button type="button" class="secondary" onclick="clearForm()">پاک کردن فرم</button>
+      <div class="status" id="status">(تغییرات به‌صورت محلی ذخیره می‌شوند)</div>
+    </div>
+  </form>
+
+  <div id="output" class="output" role="region" aria-live="polite"></div>
+
+  <script>
+    // Helper
+    function val(id){ return (document.getElementById(id)?.value || ""); }
+
+    // Save/load from localStorage (autosave)
+    const STORAGE_KEY = 'matiani_order_backup_v1';
+    function saveLocal() {
+      const data = {};
+      document.querySelectorAll('#orderForm [id]').forEach(el => data[el.id] = el.value);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      document.getElementById('status').textContent = 'ذخیره شد (محلی)';
+    }
+    function loadLocal() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if(!raw) return;
+        const obj = JSON.parse(raw);
+        Object.keys(obj).forEach(k => { const el = document.getElementById(k); if(el) el.value = obj[k]; });
+        document.getElementById('status').textContent = 'بارگذاری از ذخیرهٔ محلی انجام شد';
+      } catch(e) { console.warn(e); }
+    }
+    // Autosave every 4s
+    setInterval(saveLocal, 4000);
+    window.addEventListener('beforeunload', saveLocal);
+    loadLocal();
+
+    // Show section
+    function showSection(type){
+      const out = document.getElementById('output');
+      let html = '';
+      if(type === 'chob'){
+        html = `<h3>برگه رنگ چوب</h3>
+        <p>نام مشتری: ${val('customer')}</p>
+        <p>شماره سفارش: ${val('orderId')}</p>
+        <p>رنگ چوب: ${val('woodColor')}</p>
+        <p>نوع پوشش: ${val('finishType')}</p>
+        <p>تعداد قطعات: ${val('woodCount')}</p>
+        <p>موارد اضافی: ${[val('woodExtra1'),val('woodExtra2'),val('woodExtra3'),val('woodExtra4')].filter(Boolean).join(' — ')}</p>
+        <hr/><p><strong>توضیحات:</strong> ${val('woodDesc')}</p>`;
+      }
+      if(type === 'khayat'){
+        html = `<h3>برگه خیاطی</h3>
+        <p>نام مشتری: ${val('customer')}</p>
+        <p>کد پارچه: ${val('fabricCode')}</p>
+        <p>رنگ پارچه: ${val('fabricColor')}</p>
+        <p>تعداد صندلی: ${val('chairCount')} — تعداد مبل: ${val('sofaCount')}</p>
+        <p>موارد اضافی: ${[val('sewingExtra1'),val('sewingExtra2'),val('sewingExtra3')].filter(Boolean).join(' — ')}</p>
+        <hr/><p><strong>توضیحات:</strong> ${val('sewingDesc')}</p>`;
+      }
+      if(type === 'najjar'){
+        html = `<h3>برگه نجاری</h3>
+        <p>نام مشتری: ${val('customer')}</p>
+        <p>مدل مبل: ${val('woodModel')}</p>
+        <p>تعداد مبل‌ها: ${val('woodSofaCount')}</p>
+        <p>موارد اضافی: ${[val('carpExtra1'),val('carpExtra2'),val('carpExtra3'),val('carpExtra4')].filter(Boolean).join(' — ')}</p>
+        <hr/><p><strong>توضیحات:</strong> ${val('carpDesc')}</p>`;
+      }
+      if(type === 'rokubi'){
+        html = `<h3>برگه روی‌کوبی</h3>
+        <p>نام مشتری: ${val('customer')}</p>
+        <p>مدل مبل: ${val('upModel')}</p>
+        <p>میز کنار: ${val('upTable')} — پایه: ${val('upBase')}</p>
+        <p>صندلی: ${val('upChair')} — مبل: ${val('upSofa')} — کاناپه: ${val('upCouch')}</p>
+        <p>موارد اضافی: ${[val('upExtra1'),val('upExtra2'),val('upExtra3')].filter(Boolean).join(' — ')}</p>
+        <hr/><p><strong>توضیحات:</strong> ${val('upDesc')}</p>`;
+      }
+      if(type === 'tahvil'){
+        html = `<h3>برگه تحویل مشتری</h3>
+        <p>نام مشتری: ${val('delCustomer') || val('customer')}</p>
+        <p>شماره سفارش: ${val('orderId')}</p>
+        <p>تاریخ تحویل: ${val('delDate')}</p>
+        <p>شماره تماس: ${val('delPhone')}</p>
+        <p>آدرس: ${val('delAddress')}</p>
+        <hr/><p><strong>توضیحات:</strong> ${val('delDesc')}</p>`;
+      }
+
+      html += '<div class="btn-area"><button onclick="window.print()">چاپ</button></div>';
+      out.innerHTML = html;
+      out.style.display = 'block';
+      out.scrollIntoView({behavior:'smooth', block:'end'});
+    }
+
+    // Export JSON (download)
+    function saveJSON(){
+      const data = {};
+      document.querySelectorAll('#orderForm [id]').forEach(el => data[el.id] = el.value);
+      const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      const name = (data.orderId && data.orderId.trim()) ? data.orderId.trim() : ('order-' + Date.now());
+      a.download = name + '.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      document.getElementById('status').textContent = 'فایل JSON دانلود شد';
+    }
+
+    // Load JSON file into form
+    function loadJSONFile(input){
+      const f = input.files[0];
+      if(!f) return;
+      const reader = new FileReader();
+      reader.onload = function(e){
+        try {
+          const obj = JSON.parse(e.target.result);
+          Object.keys(obj).forEach(k => { const el = document.getElementById(k); if(el) el.value = obj[k]; });
+          document.getElementById('status').textContent = 'فایل بارگذاری شد';
+          saveLocal();
+        } catch(err) {
+          alert('فایل JSON معتبر نیست.');
+        }
+      };
+      reader.readAsText(f);
+      // clear input so same file can be loaded again later
+      input.value = '';
+    }
+
+    // Clear form (with confirmation)
+    function clearForm(){
+      if(!confirm('آیا از پاک کردن فرم مطمئن هستید؟')) return;
+      document.querySelectorAll('#orderForm [id]').forEach(el => el.value = '');
+      localStorage.removeItem(STORAGE_KEY);
+      document.getElementById('output').style.display='none';
+      document.getElementById('status').textContent = 'فرم پاک شد';
+    }
+  </script>
+</body>
+</html>
